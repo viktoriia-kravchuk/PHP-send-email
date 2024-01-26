@@ -16,6 +16,20 @@ Zadanie możesz samodzielnie uszczegółowić, trzymając się ram podanych powy
 
 ![db](./screenshots/schema.png)
 
+*Należy utwórzyć bazę danych o nazwie user_category_db i uruchomić komendę SQL z pliku db.sql
+**Nie użyto żadnej integracji serwera SMTP
+
+### Strona główna
+
+![mainpage](./screenshots/mainpage.png)
+
+### Wysłanie wiadomości email
+
+Po wybraniu kategorii użytkowników(jednej lub więcej) do których będzie wysłana wiadmość, należy wpisać treść wiadomości lub wybrać opcje domyślnej wiadmości. Także można dodać imię lub nazwisko użytkownika.
+![filledform](./screenshots/filledform.png)
+Po naciśnięciu przycisku wysłania jest widoczny ekran ładowania, a także komunikat odnoszący się do ostatecznego statusu wysłania("success/error").
+![success](./screenshots/success.png)
+
 ### Technologies used
 
 - PHP (backend)
