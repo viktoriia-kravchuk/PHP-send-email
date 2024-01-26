@@ -17,6 +17,7 @@ Zadanie możesz samodzielnie uszczegółowić, trzymając się ram podanych powy
 ![db](./screenshots/schema.png)
 
 *Należy utwórzyć bazę danych o nazwie user_category_db i uruchomić komendę SQL z pliku db.sql
+
 **Nie użyto żadnej integracji serwera SMTP
 
 ### Strona główna
@@ -30,7 +31,7 @@ Po wybraniu kategorii użytkowników(jednej lub więcej) do których będzie wys
 Po naciśnięciu przycisku wysłania jest widoczny ekran ładowania, a także komunikat odnoszący się do ostatecznego statusu wysłania("success/error").
 ![success](./screenshots/success.png)
 
-### Technologies used
+### Wykorzystane technologie
 
 - PHP (backend)
 - Mysql (database)
