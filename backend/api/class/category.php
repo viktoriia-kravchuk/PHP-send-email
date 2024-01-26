@@ -1,10 +1,9 @@
 <?php
+require_once '../constants.php';
+
     class Category{
 
         private $conn;
-
-        private $dbTable = "`categories`";
-
         public $id;
         public $name;
       
@@ -12,10 +11,8 @@
             $this->conn = $db;
         }
 
-        public function getCategories(){
-            $sqlQuery = "SELECT *
-               FROM " . $this->dbTable . "";
-            $stmt = $this->conn->prepare($sqlQuery);
+        public function getAllCategories(){
+            $stmt = $this->conn->prepare(GET_ALL_CATEGORIES_QUERY);
             $stmt->execute();
             return $stmt;
         }

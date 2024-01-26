@@ -10,7 +10,7 @@
 
     $categories = new Category($db);
 
-    $stmt = $categories->getCategories();
+    $stmt = $categories->getAllCategories();
     $categoriesCount = $stmt->rowCount();
 
     if($categoriesCount > 0){
@@ -29,7 +29,8 @@
         echo json_encode($categoriesArr);
     }
     else{
-        echo json_encode();
+        echo json_encode(array("message" => "No categories found."));
+
     }
 
 ?>

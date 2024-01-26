@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import CategoryService from "../services/CategoryService";
-import UserService from "../services/UserService";
+import EmailService from "../services/EmailService";
 import { defaultMessage as defaultText } from "../const";
+import LoadingScreen from "./LoadingScreen";
 
 const EmailForm = () => {
   const [categories, setCategories] = useState([]);
@@ -11,6 +12,8 @@ const EmailForm = () => {
   const [lastName, addLastName] = useState(false);
   const [defaultMessage, addDefaultMessage] = useState(false);
   const [isButtonDisabled, setButtonDisabled] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+  const [overlayStatus, setOverlayStatus] = useState(null);
 
   useEffect(() => {
     CategoryService.getCategories().then((res) => {
@@ -22,15 +25,13 @@ const EmailForm = () => {
     setButtonDisabled(selectedCategories.length === 0);
   }, [selectedCategories]);
 
-  useEffect(()=>{
-
-    if (defaultMessage===true){
-      setMessage(defaultText)
-    }else{
-      setMessage("")
+  useEffect(() => {
+    if (defaultMessage === true) {
+      setMessage(defaultText);
+    } else {
+      setMessage("");
     }
-
-  },[defaultMessage])
+  }, [defaultMessage]);
 
   const handleCheckboxChange = (categoryId) => {
     const index = selectedCategories.indexOf(categoryId);
@@ -43,12 +44,11 @@ const EmailForm = () => {
     }
   };
 
-  console.log(selectedCategories, "selected");
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await UserService.sendEmails({
+      setIsLoading(true);
+      const response = await EmailService.sendEmails({
         categoryIds: JSON.stringify(selectedCategories),
         message,
         includeName: name,
@@ -56,22 +56,40 @@ const EmailForm = () => {
         useDefaultMessage: defaultMessage,
       });
 
+      setOverlayStatus("success");
       console.log(response.data);
     } catch (error) {
       console.error("Error sending emails:", error.message);
+      setOverlayStatus("error");
     } finally {
+      setIsLoading(false);
       setSelectedCategories([]);
       setMessage("");
       addName(false);
       addLastName(false);
       addDefaultMessage(false);
+
+      setTimeout(() => {
+        setOverlayStatus(null);
+      }, 2000);
     }
   };
 
-  console.log(categories);
-
   return (
     <>
+      {isLoading && <LoadingScreen />}
+      {overlayStatus && (
+        <div
+          className="position-absolute bottom-0 h-100 w-100 d-flex align-items-center justify-content-center"
+          style={{ backgroundColor: "rgba(173, 173, 173, 0.7)" }}
+        >
+          <p className="m-0 text-dark" style={{ fontSize: "30px" }}>
+            {overlayStatus === "success"
+              ? "Email sent successfully!"
+              : "Error sending email."}
+          </p>
+        </div>
+      )}
       <div className="container mt-5 p-3 bg-light border shadow-sm rounded">
         <div className="row justify-content-center">
           <div className="col-lg-8">

@@ -1,0 +1,7 @@
+# dependencies
+
+/frontend/node_modules
+
+/frontend/package-lock.json
+
+/backend/api/config/config.php

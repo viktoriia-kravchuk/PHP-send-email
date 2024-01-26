@@ -8,4 +8,14 @@ If you have any specific items you'd like to include in the agenda, feel free to
 
 Looking forward to our productive discussion!");
 
+define('GET_USERS_BY_CATEGORIES_QUERY', '
+    SELECT users.*
+    FROM users
+    JOIN user_category ON users.id = user_category.user_id
+    WHERE user_category.category_id IN (:placeholders)
+    GROUP BY users.id
+');
+
+define('GET_ALL_CATEGORIES_QUERY', 'SELECT * FROM categories');
+
 ?>
